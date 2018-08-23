@@ -3,7 +3,9 @@
 require('dotenv').config();
 
 module.exports = {
-  PORT: process.env.PORT || 8080,
+  PORT: process.env.PORT || 8003,
   MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost/noteful',
-  TEST_MONGODB_URI: process.env.TEST_MONGODB_URI || 'mongodb://localhost/noteful-test'
+  TEST_MONGODB_URI: process.env.TEST_MONGODB_URI || 'mongodb://localhost/noteful-test',
+   JWT_SECRET: process.env.JWT_SECRET,
+  JWT_EXPIRY: process.env.JWT_EXPIRY || '7d'
 };
