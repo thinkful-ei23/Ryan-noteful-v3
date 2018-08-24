@@ -28,6 +28,7 @@ app.use(express.static('public'));
 
 // Parse request body
 app.use(express.json());
+
 // Utilize the given `strategy`
 passport.use(localStrategy);
 passport.use(jwtStrategy);
