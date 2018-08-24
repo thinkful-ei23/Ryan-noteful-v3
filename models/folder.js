@@ -2,20 +2,23 @@
 
 const mongoose = require('mongoose');
 
-const schema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true }
+const folderSchema = new mongoose.Schema({
+  name: { type: String, required: true/* , unique: true */ },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
-// Add `createdAt` and `updatedAt` fields
-schema.set('timestamps', true);
+folderSchema.index({ name: 1, userId: 1 }, { unique: true });
 
-// Transform output during `res.json(data)`, `console.log(data)` etc.
-schema.set('toObject', {
-  virtuals: true,
-  transform: (doc, result) => {
-    delete result._id;
-    delete result.__v;
+// Add `createdAt` and `updatedAt` fields
+folderSchema.set('timestamps', true);
+
+// Customize output for `res.json(data)`, `console.log(data)` etc.
+folderSchema.set('toObject', {
+  virtuals: true,     // include built-in virtual `id`
+  versionKey: false,  // remove `__v` version key
+  transform: (doc, ret) => {
+    delete ret._id; // delete `_id`
   }
 });
 
-module.exports = mongoose.model('Folder', schema);
+module.exports = mongoose.model('Folder', folderSchema);
